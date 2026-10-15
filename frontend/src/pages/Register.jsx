@@ -86,29 +86,49 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-100 flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-lg bg-white rounded-2xl border border-zinc-200 shadow-sm px-8 py-9">
+    <div className="min-h-screen bg-[#ede7dd] flex items-center justify-center px-5 py-10">
 
-        <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-zinc-900">
+      <div className="w-full max-w-lg bg-[#f8f4ee] rounded-2xl border border-[#d1c7ba] shadow-[0_10px_30px_rgba(70,55,40,0.08)] px-7 py-9 md:px-9">
+
+        {/* Header */}
+        <div className="text-center mb-8">
+
+          <div className="flex justify-center mb-5">
+            <div className="w-14 h-14 rounded-2xl bg-[#2b2b2b] flex items-center justify-center shadow-sm">
+              <span className="text-2xl">
+                🛍️
+              </span>
+            </div>
+          </div>
+
+          <p className="text-xs uppercase tracking-[0.2em] text-[#8f7d68] mb-3">
+            ShopKart
+          </p>
+
+          <h1 className="text-3xl font-semibold text-[#2b2b2b]">
             Create Account
           </h1>
 
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-[#6b6258]">
             Create your ShopKart account to get started.
           </p>
+
         </div>
 
+        {/* Server Error */}
         {serverError && (
-          <div className="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+          <div className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
             {serverError}
           </div>
         )}
 
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
 
+          {/* Name */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-zinc-700">
+
+            <label className="block mb-2 text-sm font-medium text-[#4b443d]">
               Name
             </label>
 
@@ -118,18 +138,21 @@ function Register() {
               placeholder="Enter your name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full h-12 px-4 rounded-lg border border-zinc-300 bg-white text-sm text-zinc-900 placeholder-zinc-400 outline-none focus:border-zinc-600 focus:ring-2 focus:ring-zinc-100"
+              className="w-full h-12 px-4 rounded-xl border border-[#cfc4b6] bg-[#fffdf9] text-sm text-[#2b2b2b] placeholder-[#9a9085] outline-none transition focus:border-[#8f7d68] focus:ring-2 focus:ring-[#8f7d68]/10"
             />
 
             {errors.name && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1.5 text-sm text-red-500">
                 {errors.name}
               </p>
             )}
+
           </div>
 
+          {/* Email */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-zinc-700">
+
+            <label className="block mb-2 text-sm font-medium text-[#4b443d]">
               Email
             </label>
 
@@ -139,18 +162,21 @@ function Register() {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full h-12 px-4 rounded-lg border border-zinc-300 bg-white text-sm text-zinc-900 placeholder-zinc-400 outline-none focus:border-zinc-600 focus:ring-2 focus:ring-zinc-100"
+              className="w-full h-12 px-4 rounded-xl border border-[#cfc4b6] bg-[#fffdf9] text-sm text-[#2b2b2b] placeholder-[#9a9085] outline-none transition focus:border-[#8f7d68] focus:ring-2 focus:ring-[#8f7d68]/10"
             />
 
             {errors.email && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1.5 text-sm text-red-500">
                 {errors.email}
               </p>
             )}
+
           </div>
 
+          {/* Phone */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-zinc-700">
+
+            <label className="block mb-2 text-sm font-medium text-[#4b443d]">
               Phone Number
             </label>
 
@@ -160,18 +186,21 @@ function Register() {
               placeholder="Enter your phone number"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full h-12 px-4 rounded-lg border border-zinc-300 bg-white text-sm text-zinc-900 placeholder-zinc-400 outline-none focus:border-zinc-600 focus:ring-2 focus:ring-zinc-100"
+              className="w-full h-12 px-4 rounded-xl border border-[#cfc4b6] bg-[#fffdf9] text-sm text-[#2b2b2b] placeholder-[#9a9085] outline-none transition focus:border-[#8f7d68] focus:ring-2 focus:ring-[#8f7d68]/10"
             />
 
             {errors.phone && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1.5 text-sm text-red-500">
                 {errors.phone}
               </p>
             )}
+
           </div>
 
+          {/* Password */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-zinc-700">
+
+            <label className="block mb-2 text-sm font-medium text-[#4b443d]">
               Password
             </label>
 
@@ -181,18 +210,21 @@ function Register() {
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full h-12 px-4 rounded-lg border border-zinc-300 bg-white text-sm text-zinc-900 placeholder-zinc-400 outline-none focus:border-zinc-600 focus:ring-2 focus:ring-zinc-100"
+              className="w-full h-12 px-4 rounded-xl border border-[#cfc4b6] bg-[#fffdf9] text-sm text-[#2b2b2b] placeholder-[#9a9085] outline-none transition focus:border-[#8f7d68] focus:ring-2 focus:ring-[#8f7d68]/10"
             />
 
             {errors.password && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1.5 text-sm text-red-500">
                 {errors.password}
               </p>
             )}
+
           </div>
 
+          {/* Repeat Password */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-zinc-700">
+
+            <label className="block mb-2 text-sm font-medium text-[#4b443d]">
               Repeat your password
             </label>
 
@@ -202,61 +234,72 @@ function Register() {
               placeholder="Repeat your password"
               value={formData.repeatPassword}
               onChange={handleChange}
-              className="w-full h-12 px-4 rounded-lg border border-zinc-300 bg-white text-sm text-zinc-900 placeholder-zinc-400 outline-none focus:border-zinc-600 focus:ring-2 focus:ring-zinc-100"
+              className="w-full h-12 px-4 rounded-xl border border-[#cfc4b6] bg-[#fffdf9] text-sm text-[#2b2b2b] placeholder-[#9a9085] outline-none transition focus:border-[#8f7d68] focus:ring-2 focus:ring-[#8f7d68]/10"
             />
 
             {errors.repeatPassword && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1.5 text-sm text-red-500">
                 {errors.repeatPassword}
               </p>
             )}
+
           </div>
 
+          {/* Terms */}
           <div>
+
             <div className="flex items-start gap-3">
+
               <input
                 type="checkbox"
                 name="agree"
                 checked={formData.agree}
                 onChange={handleChange}
-                className="mt-0.5 h-4 w-4 cursor-pointer accent-zinc-900"
+                className="mt-1 h-4 w-4 cursor-pointer accent-[#2b2b2b]"
               />
 
-              <label className="text-sm text-zinc-600 leading-5">
+              <label className="text-sm text-[#6b6258] leading-5">
                 I agree to all{" "}
-                <span className="font-medium text-zinc-900">
+                <span className="font-medium text-[#2b2b2b]">
                   Terms and Conditions
                 </span>
               </label>
+
             </div>
 
             {errors.agree && (
-              <p className="mt-1 text-sm text-red-500">
+              <p className="mt-1.5 text-sm text-red-500">
                 {errors.agree}
               </p>
             )}
+
           </div>
 
+          {/* Sign Up */}
           <button
             type="submit"
-            className="w-full h-12 rounded-lg bg-zinc-900 text-white text-sm font-semibold tracking-wide hover:bg-zinc-800 active:scale-[0.99] transition"
+            className="w-full h-12 rounded-xl bg-[#2b2b2b] text-white text-sm font-semibold tracking-wide hover:opacity-90 active:scale-[0.99] transition"
           >
             SIGN UP
           </button>
 
         </form>
 
-        <div className="mt-7 pt-6 border-t border-zinc-100 text-center">
-          <p className="text-sm text-zinc-500">
+        {/* Login */}
+        <div className="mt-7 pt-6 border-t border-[#ded5ca] text-center">
+
+          <p className="text-sm text-[#6b6258]">
             Already have an account?{" "}
+
             <button
               type="button"
               onClick={() => navigate("/login")}
-              className="font-semibold text-zinc-900 hover:underline"
+              className="font-semibold text-[#2b2b2b] hover:underline"
             >
               Login here
             </button>
           </p>
+
         </div>
 
       </div>
