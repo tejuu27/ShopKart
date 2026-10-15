@@ -1,5 +1,7 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../services/api";
 
 const Wishlist = () => {
     const navigate = useNavigate();
@@ -13,12 +15,9 @@ const Wishlist = () => {
             setLoading(true);
             setError("");
 
-            const response = await fetch(
-                "http://localhost:6010/wishlist",
-                {
-                    credentials: "include",
-                }
-            );
+            const response = await fetch(`${API_URL}/wishlist`, {
+                credentials: "include",
+            });
 
             const data = await response.json();
 
@@ -27,7 +26,6 @@ const Wishlist = () => {
             }
 
             setWishlist(data.wishlist);
-
         } catch (error) {
             console.log(error);
             setError(error.message);
@@ -43,7 +41,7 @@ const Wishlist = () => {
     const removeFromWishlist = async (productId) => {
         try {
             const response = await fetch(
-                `http://localhost:6010/wishlist/${productId}`,
+                `${API_URL}/wishlist/${productId}`,
                 {
                     method: "DELETE",
                     credentials: "include",
@@ -63,7 +61,6 @@ const Wishlist = () => {
                     (product) => product._id !== productId
                 )
             );
-
         } catch (error) {
             console.log(error);
             alert(error.message);
@@ -86,10 +83,7 @@ const Wishlist = () => {
                 <div className="products-message error-message">
                     <h2>Something went wrong</h2>
                     <p>{error}</p>
-
-                    <button onClick={fetchWishlist}>
-                        Retry
-                    </button>
+                    <button onClick={fetchWishlist}>Retry</button>
                 </div>
             </main>
         );
@@ -117,21 +111,14 @@ const Wishlist = () => {
 
     return (
         <main className="products-page">
-
             <div className="products-header">
                 <h1>My Wishlist</h1>
                 <p>Your saved products</p>
             </div>
 
             <div className="products-grid">
-
                 {wishlist.map((product) => (
-
-                    <div
-                        className="product-card"
-                        key={product._id}
-                    >
-
+                    <div className="product-card" key={product._id}>
                         <img
                             src={product.image}
                             alt={product.name}
@@ -139,11 +126,8 @@ const Wishlist = () => {
                         />
 
                         <div className="product-info">
-
                             <h2>{product.name}</h2>
-
                             <p>{product.category}</p>
-
                             <h3>₹{product.price}</h3>
 
                             <p>
@@ -154,9 +138,7 @@ const Wishlist = () => {
 
                             <button
                                 onClick={() =>
-                                    navigate(
-                                        `/products/${product._id}`
-                                    )
+                                    navigate(`/products/${product._id}`)
                                 }
                             >
                                 View Details
@@ -169,15 +151,10 @@ const Wishlist = () => {
                             >
                                 Remove
                             </button>
-
                         </div>
-
                     </div>
-
                 ))}
-
             </div>
-
         </main>
     );
 };

@@ -1,6 +1,8 @@
+
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import API_URL from "../services/api";
 
 const ProductCard = ({ product, isWishlisted }) => {
     const navigate = useNavigate();
@@ -12,14 +14,12 @@ const ProductCard = ({ product, isWishlisted }) => {
 
     // Sync Wishlist and Cart status with global state
     useEffect(() => {
-        // Wishlist status
         if (isWishlisted) {
             setWishlistStatus("success");
         } else {
             setWishlistStatus("idle");
         }
 
-        // Cart status
         const alreadyInCart = cartItems.some(
             (item) =>
                 item.product?._id?.toString() ===
@@ -41,7 +41,7 @@ const ProductCard = ({ product, isWishlisted }) => {
 
         try {
             const response = await fetch(
-                `http://localhost:6010/wishlist/${product._id}`,
+                `${API_URL}/wishlist/${product._id}`,
                 {
                     method: "POST",
                     credentials: "include",
@@ -50,15 +50,12 @@ const ProductCard = ({ product, isWishlisted }) => {
 
             const data = await response.json();
 
-            if (response.ok) {
-                setWishlistStatus("success");
-            } else if (response.status === 409) {
+            if (response.ok || response.status === 409) {
                 setWishlistStatus("success");
             } else {
                 console.log(data.message);
                 setWishlistStatus("error");
             }
-
         } catch (error) {
             console.log(error);
             setWishlistStatus("error");
@@ -73,9 +70,7 @@ const ProductCard = ({ product, isWishlisted }) => {
 
         try {
             await addToCart(product._id);
-
             setCartStatus("success");
-
         } catch (error) {
             console.log(error);
             setCartStatus("error");
@@ -84,21 +79,19 @@ const ProductCard = ({ product, isWishlisted }) => {
 
     return (
         <div className="product-card">
-
-
             <img
                 src={product.image}
                 alt={product.name}
-                className={product.category === "Books" ? "book-image" : "product-image"}
+                className={
+                    product.category === "Books"
+                        ? "book-image"
+                        : "product-image"
+                }
             />
 
-
             <div className="product-info">
-
                 <h2>{product.name}</h2>
-
                 <p>{product.category}</p>
-
                 <h3>₹{product.price}</h3>
 
                 <p>
@@ -149,7 +142,6 @@ const ProductCard = ({ product, isWishlisted }) => {
                 >
                     View Details
                 </button>
-
             </div>
         </div>
     );

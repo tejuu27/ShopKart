@@ -1,4 +1,6 @@
+
 import { createContext, useEffect, useState } from "react";
+import API_URL from "../services/api";
 
 export const CartContext = createContext();
 
@@ -13,23 +15,17 @@ export const CartProvider = ({ children }) => {
             setLoading(true);
             setError("");
 
-            const response = await fetch(
-                "http://localhost:6010/cart",
-                {
-                    credentials: "include",
-                }
-            );
+            const response = await fetch(`${API_URL}/cart`, {
+                credentials: "include",
+            });
 
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(
-                    data.message || "Failed to fetch cart"
-                );
+                throw new Error(data.message || "Failed to fetch cart");
             }
 
             setCartItems(data.cart);
-
         } catch (error) {
             console.log("FETCH CART ERROR:", error);
             setError(error.message);
@@ -43,25 +39,20 @@ export const CartProvider = ({ children }) => {
         try {
             setError("");
 
-            const response = await fetch(
-                `http://localhost:6010/cart/${productId}`,
-                {
-                    method: "POST",
-                    credentials: "include",
-                }
-            );
+            const response = await fetch(`${API_URL}/cart/${productId}`, {
+                method: "POST",
+                credentials: "include",
+            });
 
             const data = await response.json();
 
             if (!response.ok) {
                 throw new Error(
-                    data.message ||
-                    "Failed to add product to cart"
+                    data.message || "Failed to add product to cart"
                 );
             }
 
             await fetchCart();
-
         } catch (error) {
             console.log("ADD TO CART ERROR:", error);
             setError(error.message);
@@ -70,44 +61,30 @@ export const CartProvider = ({ children }) => {
     };
 
     // Update quantity
-    const updateCartQuantity = async (
-        productId,
-        quantity
-    ) => {
+    const updateCartQuantity = async (productId, quantity) => {
         try {
             setError("");
 
-            const response = await fetch(
-                `http://localhost:6010/cart/${productId}`,
-                {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({
-                        quantity,
-                    }),
-                }
-            );
+            const response = await fetch(`${API_URL}/cart/${productId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ quantity }),
+            });
 
             const data = await response.json();
 
             if (!response.ok) {
                 throw new Error(
-                    data.message ||
-                    "Failed to update cart quantity"
+                    data.message || "Failed to update cart quantity"
                 );
             }
 
             await fetchCart();
-
         } catch (error) {
-            console.log(
-                "UPDATE CART ERROR:",
-                error
-            );
-
+            console.log("UPDATE CART ERROR:", error);
             setError(error.message);
             throw error;
         }
@@ -118,31 +95,22 @@ export const CartProvider = ({ children }) => {
         try {
             setError("");
 
-            const response = await fetch(
-                `http://localhost:6010/cart/${productId}`,
-                {
-                    method: "DELETE",
-                    credentials: "include",
-                }
-            );
+            const response = await fetch(`${API_URL}/cart/${productId}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
 
             const data = await response.json();
 
             if (!response.ok) {
                 throw new Error(
-                    data.message ||
-                    "Failed to remove product"
+                    data.message || "Failed to remove product"
                 );
             }
 
             await fetchCart();
-
         } catch (error) {
-            console.log(
-                "REMOVE CART ERROR:",
-                error
-            );
-
+            console.log("REMOVE CART ERROR:", error);
             setError(error.message);
             throw error;
         }
@@ -158,13 +126,10 @@ export const CartProvider = ({ children }) => {
             value={{
                 cartItems,
                 setCartItems,
-
                 loading,
                 setLoading,
-
                 error,
                 setError,
-
                 fetchCart,
                 addToCart,
                 updateCartQuantity,
@@ -175,4 +140,3 @@ export const CartProvider = ({ children }) => {
         </CartContext.Provider>
     );
 };
-

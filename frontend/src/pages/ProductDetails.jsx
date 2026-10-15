@@ -1,6 +1,8 @@
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import API_URL from "../services/api";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -16,7 +18,7 @@ const ProductDetails = () => {
                 setError("");
 
                 const response = await fetch(
-                    `http://localhost:6010/products/${id}`
+                    `${API_URL}/products/${id}`
                 );
 
                 if (!response.ok) {
@@ -24,7 +26,6 @@ const ProductDetails = () => {
                 }
 
                 const data = await response.json();
-
                 setProduct(data);
             } catch (error) {
                 setError("Something went wrong while loading the product.");
@@ -40,7 +41,6 @@ const ProductDetails = () => {
         return (
             <div className="min-h-screen">
                 <Navbar />
-
                 <div className="product-details-message">
                     Loading product...
                 </div>
@@ -52,7 +52,6 @@ const ProductDetails = () => {
         return (
             <div className="min-h-screen">
                 <Navbar />
-
                 <div className="product-details-message error-message">
                     {error}
                 </div>
@@ -64,7 +63,6 @@ const ProductDetails = () => {
         return (
             <div className="min-h-screen">
                 <Navbar />
-
                 <div className="product-details-message">
                     Product not found.
                 </div>
@@ -74,13 +72,10 @@ const ProductDetails = () => {
 
     return (
         <div className="min-h-screen">
-
             <Navbar />
 
             <div className="product-details-page">
-
                 <div className="product-details-card">
-
                     <img
                         src={product.image}
                         alt={product.name}
@@ -88,7 +83,6 @@ const ProductDetails = () => {
                     />
 
                     <div className="product-details-info">
-
                         <p className="product-details-category">
                             {product.category}
                         </p>
@@ -110,13 +104,9 @@ const ProductDetails = () => {
                         <button className="add-to-cart-button">
                             Add to Cart
                         </button>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     );
 };

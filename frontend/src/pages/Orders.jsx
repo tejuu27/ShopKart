@@ -1,6 +1,8 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import API_URL from "../services/api";
 
 function Orders() {
     const navigate = useNavigate();
@@ -12,12 +14,9 @@ function Orders() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch(
-                    "http://localhost:6010/orders",
-                    {
-                        credentials: "include",
-                    }
-                );
+                const response = await fetch(`${API_URL}/orders`, {
+                    credentials: "include",
+                });
 
                 const data = await response.json();
 
@@ -55,7 +54,6 @@ function Orders() {
 
             <main className="px-5 py-12 md:py-16">
                 <div className="max-w-5xl mx-auto">
-
                     <div className="text-center mb-10">
                         <p className="text-sm uppercase tracking-[0.2em] text-[#8f7d68] mb-3">
                             ShopKart
@@ -102,7 +100,6 @@ function Orders() {
                                 className="bg-[#f8f4ee] border border-[#d1c7ba] rounded-2xl p-6 shadow-[0_10px_30px_rgba(70,55,40,0.06)]"
                             >
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
                                     <div>
                                         <p className="text-sm text-[#8f7d68]">
                                             Order ID
@@ -125,7 +122,6 @@ function Orders() {
                                 </div>
 
                                 <div className="mt-5 border-t border-[#ded5ca] pt-5">
-
                                     <div className="space-y-3">
                                         {order.items.map((item) => (
                                             <div
@@ -162,9 +158,7 @@ function Orders() {
                                             <p className="font-medium">
                                                 {new Date(
                                                     order.createdAt
-                                                ).toLocaleDateString(
-                                                    "en-IN"
-                                                )}
+                                                ).toLocaleDateString("en-IN")}
                                             </p>
                                         </div>
 
@@ -192,12 +186,10 @@ function Orders() {
                                     >
                                         View Order
                                     </button>
-
                                 </div>
                             </div>
                         ))}
                     </div>
-
                 </div>
             </main>
         </div>

@@ -1,7 +1,9 @@
+
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/Searchbar";
 import Navbar from "../components/Navbar";
+import API_URL from "../services/api";
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -17,7 +19,7 @@ const Products = () => {
             setLoading(true);
             setError("");
 
-            let url = "http://localhost:6010/products";
+            let url = `${API_URL}/products`;
 
             const params = new URLSearchParams();
 
@@ -40,7 +42,6 @@ const Products = () => {
             }
 
             const data = await response.json();
-
             setProducts(data.products);
         } catch (error) {
             setError("Something went wrong while loading products.");
@@ -48,23 +49,24 @@ const Products = () => {
             setLoading(false);
         }
     };
-const fetchWishlist = async () => {
-    try {
-        const response = await fetch("http://localhost:6010/wishlist", {
-            credentials: "include",
-        });
 
-        const data = await response.json();
+    const fetchWishlist = async () => {
+        try {
+            const response = await fetch(`${API_URL}/wishlist`, {
+                credentials: "include",
+            });
 
-        console.log("WISHLIST RESPONSE:", data);
+            const data = await response.json();
 
-        if (!response.ok) return;
+            console.log("WISHLIST RESPONSE:", data);
 
-        setWishlist(data.wishlist || []);
-    } catch (error) {
-        console.log("FAILED TO FETCH WISHLIST:", error);
-    }
-};
+            if (!response.ok) return;
+
+            setWishlist(data.wishlist || []);
+        } catch (error) {
+            console.log("FAILED TO FETCH WISHLIST:", error);
+        }
+    };
 
     useEffect(() => {
         fetchProducts();
@@ -73,17 +75,12 @@ const fetchWishlist = async () => {
 
     return (
         <div className="min-h-screen">
-
             <Navbar />
 
             <div className="products-page">
-
                 <div className="products-header">
                     <h1>ShopKart Products</h1>
-
-                    <p>
-                        Discover products you'll love.
-                    </p>
+                    <p>Discover products you'll love.</p>
                 </div>
 
                 <SearchBar
@@ -118,15 +115,15 @@ const fetchWishlist = async () => {
                                 key={product._id}
                                 product={product}
                                 isWishlisted={wishlist.some(
-                                    item => item._id?.toString() === product._id?.toString()
+                                    (item) =>
+                                        item._id?.toString() ===
+                                        product._id?.toString()
                                 )}
                             />
                         ))}
                     </div>
                 )}
-
             </div>
-
         </div>
     );
 };
