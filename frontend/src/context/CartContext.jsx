@@ -25,7 +25,11 @@ export const CartProvider = ({ children }) => {
                 throw new Error(data.message || "Failed to fetch cart");
             }
 
-            setCartItems(data.cart);
+            setCartItems(
+                (data.cart || []).filter(
+                    (item) => item.product && item.product._id
+                )
+            );
         } catch (error) {
             console.log("FETCH CART ERROR:", error);
             setError(error.message);
